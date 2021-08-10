@@ -7,8 +7,6 @@ import json
 
 
 def send_mail(message):
-    # with open('vars.json') as f:
-    #keys = json.load(f)
 
     server = smtplib.SMTP_SSL(process.env.SMTPSERVER, process.env.SMTPPORT)
     server.login(process.env.YAHOO, process.env.YAHOOPSWD)
