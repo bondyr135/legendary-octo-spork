@@ -10,7 +10,6 @@ def send_mail(message):
 
     with open('vars.json') as f:
         vars = json.loads(f.read())
-        print(vars)
 
         server = smtplib.SMTP_SSL(vars['SMTPSERVER'], vars['SMTPPORT'])
         server.login(vars['YAHOO'], vars['YAHOOPSWD'])
