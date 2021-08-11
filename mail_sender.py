@@ -8,15 +8,19 @@ import json
 
 def send_mail(message):
 
-    server = smtplib.SMTP_SSL(process.env.SMTPSERVER, process.env.SMTPPORT)
-    server.login(process.env.YAHOO, process.env.YAHOOPSWD)
+    with open('vars.json') as f:
+        vars = json.loads(f.read())
+        print(vars)
 
-    msg = MIMEMultipart()
-    msg['Subject'] = 'Update from iHerb'
-    msg['from'] = formataddr(('Ravid Bondy scraper', process.env.YAHOO))
-    msg['To'] = process.env.GMAIL
+        server = smtplib.SMTP_SSL(vars['SMTPSERVER'], vars['SMTPPORT'])
+        server.login(vars['YAHOO'], vars['YAHOOPSWD'])
 
-    msg.attach(MIMEText(message, 'plain'))
+        msg = MIMEMultipart()
+        msg['Subject'] = 'Update from iHerb'
+        msg['from'] = formataddr(('Ravid Bondy scraper', vars['YAHOO']))
+        msg['To'] = vars['GMAIL']
 
-    server.send_message(msg)
-    server.quit()
+        msg.attach(MIMEText(message, 'plain'))
+
+        server.send_message(msg)
+        server.quit()
